@@ -1,0 +1,35 @@
+﻿@model WebAppBanHang.Models.Product
+
+<div class="product-details-card">
+    <h2>@Model.Name</h2>
+    <div class="product-details-content">
+        <div class="product-details-info">
+            <h3 class="product-price">Price: @Model.Price.ToString("N0") đ</h3>
+            <p class="product-description">@Model.Description</p>
+            <div class="product-category">
+                <strong>Category:</strong> @(Model.Category?.Name ?? "N/A")
+            </div>
+        </div>
+        <div class="product-images-gallery">
+            <h4>Ảnh sản phẩm</h4>
+            @if (Model.Images != null && Model.Images.Any())
+            {
+                <div class="image-grid">
+                    @foreach (var image in Model.Images)
+                    {
+                        <div class="image-container">
+                            <img src="@image.Url" alt="Ảnh sản phẩm" />
+                        </div>
+                    }
+                </div>
+            }
+            else
+            {
+                <span class="no-images">Không có ảnh</span>
+            }
+        </div>
+    </div>
+    <div class="product-actions">
+        <a class="btn btn-secondary" asp-action="Index">Back to List</a>
+    </div>
+</div>

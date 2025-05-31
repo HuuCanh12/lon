@@ -1,0 +1,58 @@
+﻿@model WebAppBanHang.Models.Product
+
+@{
+    ViewData["Title"] = "Cập nhật sản phẩm";
+}
+
+<h2>Cập nhật sản phẩm</h2>
+
+<form asp-action="Update" method="post" enctype="multipart/form-data">
+    <input type="hidden" asp-for="Id" />
+
+    <div class="mb-3">
+        <label class="form-label">Tên sản phẩm</label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Giá</label>
+        <input asp-for="Price" class="form-control" />
+        <span asp-validation-for="Price" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Mô tả</label>
+        <textarea asp-for="Description" class="form-control"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Loại sản phẩm</label>
+        <select asp-for="CategoryId" class="form-select" asp-items="ViewBag.Categories">
+            <option value="">-- Chọn loại --</option>
+        </select>
+        <span asp-validation-for="CategoryId" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Hình ảnh hiện tại:</label><br />
+        @if (Model.Images != null && Model.Images.Any())
+        {
+            <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+                @foreach (var image in Model.Images)
+                {
+                    <div>
+                        <img src="@image.Url" alt="Ảnh sản phẩm" width="120" height="150" style="object-fit:cover;" />
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <span>Không có ảnh</span>
+        }
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Hình ảnh mới (chọn nhiều ảnh):</label>
+        <input type="file" class="form-control" name="imageFiles" multiple />
+    </div>
+    <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+    <a asp-action="Index" class="btn btn-secondary">Hủy</a>
+</form>
